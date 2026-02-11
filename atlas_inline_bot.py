@@ -19,9 +19,6 @@ async def inline_calc(q: types.InlineQuery):
         return
 
     try:
-        # Форматы:
-        # 2500 2.25
-        # 2500/2.25
         if "/" in raw:
             total_str, percent_str = raw.split("/", 1)
         else:
@@ -35,7 +32,6 @@ async def inline_calc(q: types.InlineQuery):
 
         net = total / (1 + percent / 100)
 
-        # USDT сумма в коде, чтобы удобно копировать
         text = f"{fmt(net)} USDT + {fmt(percent)}% = {fmt(total)} USD"
 
         result = InlineQueryResultArticle(
