@@ -54,5 +54,6 @@ async def main():
         raise RuntimeError("BOT_TOKEN not set")
     await dp.start_polling(bot)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
+    import asyncio
     asyncio.run(main())
