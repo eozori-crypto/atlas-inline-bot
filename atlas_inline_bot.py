@@ -2,11 +2,20 @@ import asyncio
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineQueryResultArticle, InputTextMessageContent
+from aiogram.filters import Command
 
 TOKEN = os.getenv("BOT_TOKEN", "").strip()
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
+
+@dp.message(Command("start"))
+async def start_cmd(message: types.Message):
+    await message.answer(
+        "✅ Бот работает.\n\n"
+        "Используй так:\n"
+        "@atlas_usdt_usd_bot 2500 2.25"
+    )
 
 def fmt(x: float) -> str:
     return f"{x:.2f}"
