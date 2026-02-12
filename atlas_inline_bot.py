@@ -43,13 +43,13 @@ async def inline_calc(q: types.InlineQuery):
         text = f"{fmt(net)} USDT + {fmt(percent)}% = {fmt(total)} USD"
 
         result = InlineQueryResultArticle(
-            id=f"calc:{q.id}",
-            title="Exchange calculation",
-            description=text,
-            input_message_content=InputTextMessageContent(text)
-        )
+    id="calc",
+    title="Exchange calculation",
+    description=text,
+    input_message_content=InputTextMessageContent(text)
+)
 
-        await q.answer([result], cache_time=0)
+        await q.answer([result], cache_time=0, is_personal=True)
 
     except Exception:
         await q.answer([], cache_time=0)
