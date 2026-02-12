@@ -1,5 +1,5 @@
-import asyncio
 import os
+import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineQueryResultArticle, InputTextMessageContent
 from aiogram.filters import Command
@@ -40,22 +40,18 @@ async def inline_calc(q: types.InlineQuery):
         percent = float(percent_str)
 
         net = total / (1 + percent / 100)
-
         text = f"{fmt(net)} USDT + {fmt(percent)}% = {fmt(total)} USD"
 
         result = InlineQueryResultArticle(
-            id="calc",
+            id=f"calc:{q.id}",
             title="Exchange calculation",
-            description=f"{fmt(net)} USDT + {fmt(percent)}% = {fmt(total)} USD",
-            input_message_content=InputTextMessageContent(
-                text,
-                parse_mode="Markdown"
-            )
+            description=text,
+            input_message_content=InputTextMessageContent(text)
         )
 
         await q.answer([result], cache_time=0)
 
-    except:
+    except Exception:
         await q.answer([], cache_time=0)
 
 async def main():
@@ -63,6 +59,5 @@ async def main():
         raise RuntimeError("BOT_TOKEN not set")
     await dp.start_polling(bot)
 
-if __name__ == "__main__":
-    import asyncio
+if name == "__main__":
     asyncio.run(main())
